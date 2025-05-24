@@ -30,12 +30,6 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      # TODO: Remove this step
-      - name: Fail the pipeline
-        run: |
-          echo "This step will fail now."
-          exit 1
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
