@@ -20,12 +20,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # TODO: Remove this step
-      - name: Fail the pipeline
-        run: |
-          echo "This step will fail now."
-          exit 1
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -76,4 +70,4 @@ jobs:
             docker stop myapp || true
             docker rm myapp || true
             docker pull ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
-            docker run -d --name myapp -p 80:80 ${{ env.DOCKER_IMAGE }}:latest
+            docker run -d --name myapp -p 80:80 ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
