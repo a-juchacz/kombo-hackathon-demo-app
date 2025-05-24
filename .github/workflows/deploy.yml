@@ -67,11 +67,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             docker login --username AWS --password $(aws ecr get-login-password --region ${{ env.AWS_REGION }}) ${{ env.DOCKER_IMAGE }}
-            if docker ps --filter "name=myapp" --filter "status=running" --format '{{.Names}}' | grep -q '^myapp$'; then
-              echo "Stopping running container: myapp"
-              docker stop myapp
-            else
-              echo "Container myapp is not running."
-            fi
+            docker stop myapp 2>/dev/null || true
+            docker rm myapp 2>/dev/null || true
             docker pull ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
             docker run -d --name myapp -p 80:80 ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
