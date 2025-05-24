@@ -25,7 +25,12 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
-        
+          
+      # TODO: The step below is for testing, it should be removed for production
+      - name: Fail the pipeline
+        run: |
+          echo "This step will fail now."
+          exit 1 
 
       - name: Login to Amazon ECR
         id: login-ecr
