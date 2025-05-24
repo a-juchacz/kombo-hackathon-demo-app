@@ -70,5 +70,5 @@ jobs:
             docker stop myapp 2>/dev/null || true
             docker rm myapp 2>/dev/null || true
             docker pull ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
-            docker run -d --name myapp -p 80:80 ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }} \ gunicorn --bind=0.0.0.0:80 app:app
+            docker run -d --name myapp -p 80:80 ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
 
