@@ -1,3 +1,4 @@
+
 name: Deploy to EC2
 
 on:
@@ -25,12 +26,6 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
-
-      # TODO: The step below is for testing, it should be removed for production
-      - name: Fail the pipeline
-        run: |
-          echo "This step will fail now."
-          exit 1 
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -76,4 +71,3 @@ jobs:
             docker rm myapp 2>/dev/null || true
             docker pull ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
             docker run -d --name myapp -p 80:80 ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
-
